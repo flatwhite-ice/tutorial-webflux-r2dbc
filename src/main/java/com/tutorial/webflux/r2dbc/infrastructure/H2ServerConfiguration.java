@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class H2ServerConfig {
+public class H2ServerConfiguration {
     @Value("${h2.console.port}")
     private String port;
     private Server webServer;
