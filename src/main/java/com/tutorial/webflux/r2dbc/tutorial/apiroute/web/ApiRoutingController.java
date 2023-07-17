@@ -58,7 +58,7 @@ public class ApiRoutingController {
     }
 
 
-    @GetMapping(path = "/api-routes/{id}")
+    @GetMapping(path = "/api-routes/id/{id}")
     public Mono<ApiRouteResponse> getRoute(@PathVariable String id){
         return apiRoutingService.getRoute(Long.valueOf(id))
                 .map(this::apiRoutesConvertToApiRouteResponse);
@@ -79,7 +79,7 @@ public class ApiRoutingController {
                 .subscribeOn(Schedulers.boundedElastic());
     }
 
-    @PutMapping(path = "/routess/{id}")
+    @PutMapping(path = "/routes/id/{id}")
     public Mono<ApiRouteResponse> editRouteAndGet(
             @PathVariable String id,
             @RequestBody ApiRouteRequest request){
@@ -94,13 +94,13 @@ public class ApiRoutingController {
     }
 
 
-    @PostMapping(path = "/api-routes/routes")
+    @PostMapping(path = "/api-routes")
     public Mono<?> addRoute(@RequestBody ApiRouteRequest request){
         return apiRoutingService.addRoute(this.apiRouteRequestConverToApiRoute(request))
                 .subscribeOn(Schedulers.boundedElastic());
     }
 
-    @PostMapping(path = "/api-routes/routess")
+    @PostMapping(path = "/api-routes/routes")
     public Mono<ApiRouteResponse> addRouteAndGet(@RequestBody ApiRouteRequest apiRouteRequest){
         return apiRoutingService.addRouteAndGet(this.apiRouteRequestConverToApiRoute(apiRouteRequest));
     }
