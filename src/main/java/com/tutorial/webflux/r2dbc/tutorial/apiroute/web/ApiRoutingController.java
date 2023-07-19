@@ -49,13 +49,13 @@ public class ApiRoutingController {
         return apiRoute;
     }
 
-    @GetMapping(path = "/api-routes")
-    public Mono<List<ApiRouteResponse>> getRoutes(){
-        return apiRoutingService.getAllRoutes()
-                .map(this::apiRoutesConvertToApiRouteResponse)
-                .collectList()
-                .subscribeOn(Schedulers.boundedElastic());
-    }
+//    @GetMapping(path = "/api-routes")
+//    public Mono<List<ApiRouteResponse>> getRoutes(){
+//        return apiRoutingService.getAllRoutes()
+//                .map(this::apiRoutesConvertToApiRouteResponse)
+//                .collectList()
+//                .subscribeOn(Schedulers.boundedElastic());
+//    }
 
 
     @GetMapping(path = "/api-routes/id/{id}")
@@ -85,14 +85,17 @@ public class ApiRoutingController {
             @RequestBody ApiRouteRequest request){
         return apiRoutingService.updateRouteAndSelect(this.apiRouteRequestConverToApiRoute(Long.valueOf(id), request))
                 .log()
-                .flatMap(api -> {
-                        // System.out.println(">>> " + api);
-                        return apiRoutingService.getRoute(Long.valueOf(id))
-                                .map(this::apiRoutesConvertToApiRouteResponse);
-                    }
-                );
+                .flatMap(result -> {
+                   return Mono.just(result);
+                });
+//  Do Something
+//                .flatMap(api -> {
+//                        return apiRoutingService.getRoute(Long.valueOf(id))
+//                                .log()
+//                                .map(this::apiRoutesConvertToApiRouteResponse);
+//                    }
+//                );
     }
-
 
     @PostMapping(path = "/api-routes")
     public Mono<?> addRoute(@RequestBody ApiRouteRequest request){
