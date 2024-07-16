@@ -79,7 +79,7 @@ public class ApiRoutingController {
                 .subscribeOn(Schedulers.boundedElastic());
     }
 
-    @PutMapping(path = "/routess/{id}")
+    @PutMapping(path = "/routes/{id}")
     public Mono<ApiRouteResponse> editRouteAndGet(
             @PathVariable String id,
             @RequestBody ApiRouteRequest request){
